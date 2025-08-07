@@ -16,6 +16,7 @@ body,
   margin-top: 2rem;
   padding: 0 1rem;
   width: 100%;
+  flex-direction: column;
 }
 
 /* Style the input */

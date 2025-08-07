@@ -1,42 +1,19 @@
 import { useState } from 'react';
 import './App.css';
+import QuestionBar from './components/QuestionBar';
+import GuessBar from "./components/GuessBar.jsx";
 
 function App() {
-  const [text, setText] = useState('');
-
-  const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const res = await fetch("http://127.0.0.1:8000", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                text: text,
-            })
-        })
-
-        const response = await res.json()
-        console.log(response)
-    }
+  const [count, setCount] = useState(0)
 
   return (
-    <div className="app-container">
-      <input
-        type="text"
-        placeholder="Type something..."
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        className="typing-input"
-        onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey && text.trim() !== ""){
-                handleSubmit(e);
-        }
-        }}
-      />
-    </div>
-  );
+      <div className={"app-container"}>
+          <QuestionBar count = {count} setCount = {setCount}/>
+          {count >= 20 && (
+              <GuessBar/>
+          )}
+      </div>
+  )
 }
 
 export default App;

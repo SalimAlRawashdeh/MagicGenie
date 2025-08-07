@@ -2,7 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .bedrock.llama import askQuestion
+from .bedrock.llama import askQuestion, guessWord
 
 
 @csrf_exempt
@@ -12,6 +12,15 @@ def ask(request):
         text = data.get('text', '')
         response = askQuestion(text)
         return JsonResponse({'response': response})
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+@csrf_exempt
+def guess(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        guess = data.get('guess', '')
+        correct = guessWord(guess)
+        return JsonResponse({'response': correct})
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
 
