@@ -21,23 +21,25 @@ function QuestionBar({count, setCount}) {
     }
 
      return (
-          <input
-            type="text"
-            placeholder="Ask something..."
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            className="typing-input"
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey && text.trim() !== "" && count < 20) {
-                  handleSubmit(e);
-                  setCount(count + 1)
-                  setText("")
-              } else if (count >= 20 && e.key === "Enter"){
-                  console.log("All questions asked!")
-              }
-            }}
-          />
-    );
+         <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+             <input
+                 type="text"
+                 placeholder="Ask something..."
+                 value={text}
+                 onChange={(e) => setText(e.target.value)}
+                 className="typing-input"
+                 onKeyDown={(e) => {
+                     if (e.key === "Enter" && !e.shiftKey && text.trim() !== "" && count < 20) {
+                         handleSubmit(e);
+                         setCount(count + 1);
+                         setText("");
+                     } else if (count >= 2 && e.key === "Enter") {
+                         console.log("All questions asked!");
+                     }
+                 }}
+             />
+         </div>
+     );
 }
 
 export default QuestionBar
