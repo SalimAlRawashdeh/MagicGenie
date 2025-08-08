@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function QuestionBar() {
+function QuestionBar({setCorrect}) {
     const [text, setText] = useState('');
 
     const handleSubmit = async (e) => {
@@ -16,8 +16,9 @@ function QuestionBar() {
             })
         })
 
-        const correct = await res.json()
-        console.log(correct)
+        const data = await res.json()
+        setCorrect(data.response)
+        console.log(data.response)
     }
 
      return (

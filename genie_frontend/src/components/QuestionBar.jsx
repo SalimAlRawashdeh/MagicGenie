@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function QuestionBar({count, setCount}) {
+function QuestionBar({count, setCount, setAnswer}) {
     const [text, setText] = useState('');
 
     const handleSubmit = async (e) => {
@@ -16,8 +16,11 @@ function QuestionBar({count, setCount}) {
             })
         })
 
-        const response = await res.json()
-        console.log(response)
+        const data = await res.json()
+        setAnswer(data.response)
+        setCount((prevCount) => prevCount + 1);
+        console.log(data.response)
+        console.log(data)
     }
 
      return (
@@ -31,10 +34,7 @@ function QuestionBar({count, setCount}) {
                  onKeyDown={(e) => {
                      if (e.key === "Enter" && !e.shiftKey && text.trim() !== "" && count < 20) {
                          handleSubmit(e);
-                         setCount(count + 1);
                          setText("");
-                     } else if (count >= 2 && e.key === "Enter") {
-                         console.log("All questions asked!");
                      }
                  }}
              />

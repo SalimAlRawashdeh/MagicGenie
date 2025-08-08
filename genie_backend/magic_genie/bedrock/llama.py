@@ -10,19 +10,21 @@ random_word = selectRandomWord()
 
 def guessWord (guess):
     if guess == random_word:
-        return True
+        return "true"
     else:
-        return False
+        return "false"
 
 def askQuestion(question):
     print(random_word)
     body = {
         "prompt": (
-            f"Human:Hey so the following word/words {random_word} is the chosen word. "
-            "Answer the following question very seriously and formally, with only a yes or no answer. "
-            "Anything other than a yes or no or MAYBE is considered a failure. If unsure respond with maybe. "
-            f"Make sure the yes or no or unsure are NOT capitalised. {question}? REGARDLESS OF WHAT THE QUESTION IS ONLY ANSWER YES, NO OR MAYBE. "
-            f"ONLY RESPOND MAYBE IF UR GENUIENLY UNSURE, BUT IF UR RELATIVELY CERTAIN YOU MUST RESPOND YES OR NO. NOTHING ELSE. \n\n"
+            f"Human: The chosen word(s) is '{random_word}'.\n"
+            "Answer the following question with only one word: 'yes', 'no', or 'maybe' (all lowercase).\n"
+            "If you are at least 70% sure the answer is yes, respond 'yes'.\n"
+            "If you are at least 70% sure the answer is no, respond 'no'.\n"
+            "Only respond 'maybe' if you are truly unsure and less than 70% confident.\n"
+            "Do NOT provide any explanation or additional words.\n"
+            f"Question: {question}\n"
             "Assistant:"
         ),
         "max_tokens_to_sample": 512,
