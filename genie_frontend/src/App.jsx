@@ -18,9 +18,19 @@ function App() {
 
     return (
         <div className="app-root">
-            <div className="counter">
-                {count}/20
+            <div className="top-bar">
+                <div className="counter">
+                    {count}/20
+                </div>
+                <button className="reset-btn"
+                        onClick={() => {
+                            setPhase("guessing");
+                            setCount(20);
+                        }}>
+                    GUESS
+                </button>
             </div>
+
 
             <div className="speech-bubble-area">
                 {phase === "start" && (
