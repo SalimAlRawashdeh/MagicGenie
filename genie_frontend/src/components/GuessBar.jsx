@@ -1,10 +1,12 @@
 import {useState} from "react";
 
-function QuestionBar({setCorrect}) {
+function QuestionBar({setCorrect, setPhase}) {
     const [text, setText] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        setPhase("guessing")
 
         const res = await fetch("http://127.0.0.1:8000/guess/", {
             method: 'POST',

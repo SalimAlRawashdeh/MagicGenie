@@ -14,28 +14,36 @@ function App() {
     const [count, setCount] = useState(0);
     const [answer, setAnswer] = useState("")
     const [correct, setCorrect] = useState("")
-    const [phase, setPhase] = useState("asking");
+    const [phase, setPhase] = useState("start");
 
     return (
         <div className="app-root">
+            <div className="counter">
+                {count}/20
+            </div>
+
             <div className="speech-bubble-area">
-                {count === 0 ? (
+                {phase === "start" && (
                     <img src={initialspeech} className="speech-bubble"/>
-                ) : count < 2 && answer !== "" ? (
-                    answer === "yes" ? (
-                        <img src={yes} className="speech-bubble"/>
-                    ) : answer === "no" ? (
-                        <img src={no} className="speech-bubble"/>
-                    ) : (
-                        <img src={maybe} className="speech-bubble"/>
-                    )
-                ) : (
-                    correct === "true" ? (
-                        <img src={winner} className="speech-bubble"/>
-                    ) : (
-                        <img src={loser} className="speech-bubble"/>
-                    )
                 )}
+
+                {phase === "questions" && answer !== "" && (
+                    <>
+                        {answer === "yes" && <img src={yes} className="speech-bubble"/>}
+                        {answer === "no" && <img src={no} className="speech-bubble"/>}
+                        {answer !== "yes" && answer !== "no" && (
+                            <img src={maybe} className="speech-bubble"/>
+                        )}
+                    </>
+                )}
+
+                {phase === "guessing" && (
+                    <>
+                        {correct === "true" && <img src={winner} className="speech-bubble"/>}
+                        {correct === "false" && <img src={loser} className="speech-bubble"/>}
+                    </>
+                )}
+
             </div>
 
             <div className="hands-container">
@@ -44,10 +52,10 @@ function App() {
             </div>
 
             <div className="questions-container">
-                {count < 2 ? (
-                    <QuestionBar count={count} setCount={setCount} setAnswer={setAnswer}/>
+                {count < 20 ? (
+                    <QuestionBar count={count} setCount={setCount} setAnswer={setAnswer} setPhase={setPhase}/>
                 ) : (
-                    <GuessBar setCorrect = {setCorrect}/>
+                    <GuessBar setCorrect={setCorrect} setPhase={setPhase}/>
                 )}
             </div>
         </div>

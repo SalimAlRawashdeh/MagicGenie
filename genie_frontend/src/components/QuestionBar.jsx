@@ -1,10 +1,12 @@
 import {useState} from "react";
 
-function QuestionBar({count, setCount, setAnswer}) {
+function QuestionBar({count, setCount, setAnswer, setPhase}) {
     const [text, setText] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        setPhase("questions")
 
         const res = await fetch("http://127.0.0.1:8000", {
             method: 'POST',
