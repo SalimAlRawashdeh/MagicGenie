@@ -1,14 +1,11 @@
 import {useState} from 'react';
 import './App.css';
-import magichand from './assets/magichand.gif';
-import initialspeech from './assets/initialspeech.gif'
-import yes from './assets/yes.gif'
-import no from './assets/no.gif'
-import maybe from './assets/maybe.gif'
-import winner from './assets/winner.gif'
-import loser from './assets/loser.gif'
 import QuestionBar from './components/QuestionBar';
 import GuessBar from "./components/GuessBar.jsx";
+import TopBar from "./components/TopBar.jsx";
+import SpeechBubbles from "./components/SpeechBubbles.jsx";
+import HandsContainer from "./components/HandsContainer.jsx";
+import AutoMusic from "./components/AutoMusic.jsx";
 
 function App() {
     const [count, setCount] = useState(0);
@@ -18,48 +15,13 @@ function App() {
 
     return (
         <div className="app-root">
-            <div className="top-bar">
-                <div className="counter">
-                    {count}/20
-                </div>
-                <button className="reset-btn"
-                        onClick={() => {
-                            setPhase("guessing");
-                            setCount(20);
-                        }}>
-                    GUESS
-                </button>
-            </div>
+            <AutoMusic/>
 
+            <TopBar count={count} setCount={setCount} setPhase={setPhase}/>
 
-            <div className="speech-bubble-area">
-                {phase === "start" && (
-                    <img src={initialspeech} className="speech-bubble"/>
-                )}
+            <SpeechBubbles phase={phase} correct={correct} answer={answer}/>
 
-                {phase === "questions" && answer !== "" && (
-                    <>
-                        {answer === "yes" && <img src={yes} className="speech-bubble"/>}
-                        {answer === "no" && <img src={no} className="speech-bubble"/>}
-                        {answer !== "yes" && answer !== "no" && (
-                            <img src={maybe} className="speech-bubble"/>
-                        )}
-                    </>
-                )}
-
-                {phase === "guessing" && (
-                    <>
-                        {correct === "true" && <img src={winner} className="speech-bubble"/>}
-                        {correct === "false" && <img src={loser} className="speech-bubble"/>}
-                    </>
-                )}
-
-            </div>
-
-            <div className="hands-container">
-                <img src={magichand} className="right-magic-hand"/>
-                <img src={magichand} className="left-magic-hand"/>
-            </div>
+            <HandsContainer/>
 
             <div className="questions-container">
                 {count < 20 ? (
