@@ -9,7 +9,7 @@ function TopBar ({count, setPhase, setCount}) {
                         setPhase("guessing");
                         setCount(20);
                     }}>
-                GUESS
+                guess
             </button>
         </div>
     )

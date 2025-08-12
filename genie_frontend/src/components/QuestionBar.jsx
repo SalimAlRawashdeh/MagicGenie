@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function QuestionBar({count, setCount, setAnswer, setPhase}) {
+function QuestionBar({count, setCount, setAnswer, setPhase, setHistory}) {
     const [text, setText] = useState('');
 
     const handleSubmit = async (e) => {
@@ -19,8 +19,14 @@ function QuestionBar({count, setCount, setAnswer, setPhase}) {
         })
 
         const data = await res.json()
+        if (data.response !== "yes" && data.response !== "no") {
+            data.response = "maybe"
+        }
+
         setAnswer(data.response)
         setCount((prevCount) => prevCount + 1);
+        setHistory(prev => [...prev, {question: text, answer: data.response}])
+
         console.log(data.response)
         console.log(data)
     }
