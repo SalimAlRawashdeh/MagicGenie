@@ -8,6 +8,7 @@ import HandsContainer from "./components/HandsContainer.jsx";
 import AutoMusic from "./components/AutoMusic.jsx";
 import StartButton from "./components/StartButton.jsx";
 import OpenHistory from "./components/OpenHistory.jsx";
+import OpenOptions from "./components/OpenOptions.jsx";
 
 function App() {
     const [count, setCount] = useState(0);
@@ -16,6 +17,7 @@ function App() {
     const [phase, setPhase] = useState("start");
     const [hasStarted, setHasStarted] = useState(false)
     const [history, setHistory] = useState([])
+    const [guessed, setGuessed] = useState(false)
 
     useEffect(() => {
         const preventScroll = (e) => {
@@ -57,9 +59,14 @@ function App() {
                             setHistory={setHistory}
                         />
                     ) : (
-                        <GuessBar setCorrect={setCorrect} setPhase={setPhase}/>
+                        <GuessBar setCorrect={setCorrect} setPhase={setPhase} guessed={guessed} setGuessed={setGuessed}/>
                     )}
                 </div>
+
+                <div className = "open-options-wrapper">
+                    <OpenOptions/>
+                </div>
+                
             </div>
 
 

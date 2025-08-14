@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function QuestionBar({setCorrect, setPhase}) {
+function QuestionBar({setCorrect, setPhase, guessed, setGuessed}) {
     const [text, setText] = useState('');
 
     const handleSubmit = async (e) => {
@@ -19,24 +19,27 @@ function QuestionBar({setCorrect, setPhase}) {
         })
 
         const data = await res.json()
+        setGuessed(true)
         setCorrect(data.response)
         console.log(data.response)
     }
 
-     return (
-          <input
+    return (
+        <input
             type="text"
             placeholder="Guess something..."
             value={text}
             onChange={(e) => setText(e.target.value)}
             className="typing-input"
             onKeyDown={(e) => {
-              if (e.key === "Enter" && !e.shiftKey && text.trim() !== "") {
-                  handleSubmit(e);
-                  setText("")
-              }
+                if (e.key === "Enter" && !e.shiftKey && text.trim() !== "") {
+                    if (!guessed) {
+                        handleSubmit(e);
+                        setText("")
+                    }
+                }
             }}
-          />
+        />
     );
 }
 
