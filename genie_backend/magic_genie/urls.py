@@ -21,7 +21,6 @@ from . import views
 
 urlpatterns = [
     path('', views.ask, name='ask'),
-    path('guess/', views.guess, name='guess')
+    path('guess/', views.guess, name='guess'),
+    path('today_stats/', views.today_stats, name='today_stats')
 ]
-
-print("Registered URLs:", urlpatterns)

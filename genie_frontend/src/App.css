@@ -268,6 +268,37 @@ body,
     margin-bottom: 1.5rem;
 }
 
+.bar-container {
+  margin-bottom: 10px;
+}
+
+/* Label above each bar */
+.bar-label {
+  margin-bottom: 4px;
+}
+
+/* Bar background */
+.bar-background {
+  height: 20px;
+  width: 100%;
+  background: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Correct bar */
+.bar-correct {
+  height: 100%;
+  background-color: #1E3A8A;
+  border-radius: 10px 0 0 10px;
+}
+
+/* Wrong bar */
+.bar-wrong {
+  height: 100%;
+  background-color: #1E3A8A;
+  border-radius: 10px 0 0 10px;
+}
 
 
 
