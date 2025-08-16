@@ -22,5 +22,6 @@ from . import views
 urlpatterns = [
     path('', views.ask, name='ask'),
     path('guess/', views.guess, name='guess'),
-    path('today_stats/', views.today_stats, name='today_stats')
+    path('today_stats/', views.today_stats, name='today_stats'),
+    path('fetch_word/', views.fetch_word, name='fetch_word'),
 ]

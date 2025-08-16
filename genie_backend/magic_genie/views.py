@@ -3,6 +3,8 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 import json
+
+from .bedrock.chooseword import select_random_word
 from .bedrock.llama import askQuestion, guessWord
 from .models import NumberCorrect
 
@@ -55,6 +57,10 @@ def today_stats(request):
         'correct': obj.correct,
         'wrong': obj.wrong
     })
+
+def fetch_word (request):
+    word = select_random_word()
+    return JsonResponse({'word': word})
 
 
 def home(request):

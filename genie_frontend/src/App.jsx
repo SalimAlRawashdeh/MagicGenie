@@ -64,7 +64,7 @@ function App() {
                 </div>
 
                 <div className = "open-options-wrapper">
-                    <OpenOptions/>
+                    <OpenOptions guessed = {guessed}/>
                 </div>
                 
             </div>
