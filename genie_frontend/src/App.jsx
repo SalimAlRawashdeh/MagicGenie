@@ -18,6 +18,7 @@ function App() {
     const [hasStarted, setHasStarted] = useState(false)
     const [history, setHistory] = useState([])
     const [guessed, setGuessed] = useState(false)
+    const [muted, setMuted] = useState(false)
 
     useEffect(() => {
         const preventScroll = (e) => {
@@ -35,9 +36,8 @@ function App() {
 
     return (
         <div className="app-root">
-            {hasStarted && (
-                <AutoMusic/>
-            )}
+            {hasStarted && <AutoMusic muted={muted}/>}
+
 
             <TopBar count={count} setCount={setCount} setPhase={setPhase}/>
 
@@ -59,14 +59,15 @@ function App() {
                             setHistory={setHistory}
                         />
                     ) : (
-                        <GuessBar setCorrect={setCorrect} setPhase={setPhase} guessed={guessed} setGuessed={setGuessed}/>
+                        <GuessBar setCorrect={setCorrect} setPhase={setPhase} guessed={guessed}
+                                  setGuessed={setGuessed}/>
                     )}
                 </div>
 
-                <div className = "open-options-wrapper">
-                    <OpenOptions guessed = {guessed}/>
+                <div className="open-options-wrapper">
+                    <OpenOptions guessed={guessed} muted={muted} setMuted={setMuted}/>
                 </div>
-                
+
             </div>
 
 
