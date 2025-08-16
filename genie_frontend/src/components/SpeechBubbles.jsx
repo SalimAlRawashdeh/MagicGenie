@@ -1,31 +1,52 @@
-import initialspeech from "../assets/initialspeech.gif";
-import yes from "../assets/yes.gif";
-import no from "../assets/no.gif";
-import maybe from "../assets/maybe.gif";
-import winner from "../assets/winner.gif";
-import loser from "../assets/loser.gif";
+import initialspeech from "../assets/initialspeech.webm";
+import yes from "../assets/yes.webm";
+import no from "../assets/no.webm";
+import maybe from "../assets/maybe.webm";
+import winner from "../assets/winner.webm";
+import loser from "../assets/loser.webm";
 
-function SpeechBubbles ({phase, answer, correct}) {
+function SpeechBubbles({phase, answer, correct}) {
     return (
         <div className="speech-bubble-area">
             {phase === "start" && (
-                <img src={initialspeech} className="speech-bubble"/>
+                <video src={initialspeech} autoPlay playsInline muted
+                    onEnded={(e) => e.currentTarget.pause()}
+                    className="speech-bubble"
+                />
             )}
 
             {phase === "questions" && answer !== "" && (
                 <>
-                    {answer === "yes" && <img src={yes} className="speech-bubble"/>}
-                    {answer === "no" && <img src={no} className="speech-bubble"/>}
+                    {answer === "yes" && <video src={yes} autoPlay playsInline muted
+                                                onEnded={(e) => e.currentTarget.pause()}
+                                                className="speech-bubble"
+                    />}
+
+                    {answer === "no" && <video src={no} autoPlay playsInline muted
+                                               onEnded={(e) => e.currentTarget.pause()}
+                                               className="speech-bubble"
+                    />}
+
                     {answer !== "yes" && answer !== "no" && (
-                        <img src={maybe} className="speech-bubble"/>
+                        <video src={maybe} autoPlay playsInline muted
+                               onEnded={(e) => e.currentTarget.pause()}
+                               className="speech-bubble"
+                        />
                     )}
                 </>
             )}
 
             {phase === "guessing" && (
                 <>
-                    {correct === "true" && <img src={winner} className="speech-bubble"/>}
-                    {correct === "false" && <img src={loser} className="speech-bubble"/>}
+                    {correct === "true" && <video src={winner} autoPlay playsInline muted
+                                                  onEnded={(e) => e.currentTarget.pause()}
+                                                  className="speech-bubble"
+                    />}
+
+                    {correct === "false" && <video src={loser} autoPlay playsInline muted
+                                                   onEnded={(e) => e.currentTarget.pause()}
+                                                   className="speech-bubble"
+                    />}
                 </>
             )}
 

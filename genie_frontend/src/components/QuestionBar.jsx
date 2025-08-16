@@ -5,8 +5,7 @@ function QuestionBar({count, setCount, setAnswer, setPhase, setHistory}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        setPhase("questions")
+        setPhase("asking")
 
         const res = await fetch("http://127.0.0.1:8000", {
             method: 'POST',
@@ -23,6 +22,7 @@ function QuestionBar({count, setCount, setAnswer, setPhase, setHistory}) {
             data.response = "maybe"
         }
 
+        setPhase("questions")
         setAnswer(data.response)
         setCount((prevCount) => prevCount + 1);
         setHistory(prev => [...prev, {question: text, answer: data.response}])
