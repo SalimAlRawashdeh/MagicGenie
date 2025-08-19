@@ -1,7 +1,9 @@
 import {useState, useEffect} from "react";
 import ReactDOM from "react-dom";
+import useLocalStorage from "./LocalStorage.jsx";
+import app from "../App.jsx";
 
-function OpenOptions({guessed, muted, setMuted}) {
+function OpenOptions({guessed, muted, setMuted, appeared, setAppeared}) {
     const [showOverlay, setShowOverlay] = useState(false);
     const [word, setWord] = useState("");
     const [stats, setStats] = useState({
@@ -29,13 +31,15 @@ function OpenOptions({guessed, muted, setMuted}) {
     }, [showOverlay]);
 
     useEffect(() => {
-        if (guessed) {
-            fetchWord();
+        if (guessed && !appeared) {
+            fetchWord()
+            setAppeared(true);
             setTimeout(() => {
                 setShowOverlay(true);
             }, 2500);
         }
-    }, [guessed]);
+    }, [guessed, appeared]);
+
 
     return (
         <>

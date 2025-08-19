@@ -9,16 +9,37 @@ import AutoMusic from "./components/AutoMusic.jsx";
 import StartButton from "./components/StartButton.jsx";
 import OpenHistory from "./components/OpenHistory.jsx";
 import OpenOptions from "./components/OpenOptions.jsx";
+import useLocalStorage from "./components/LocalStorage.jsx";
 
 function App() {
-    const [count, setCount] = useState(0);
-    const [answer, setAnswer] = useState("")
-    const [correct, setCorrect] = useState("")
-    const [phase, setPhase] = useState("start");
-    const [hasStarted, setHasStarted] = useState(false)
-    const [history, setHistory] = useState([])
-    const [guessed, setGuessed] = useState(false)
-    const [muted, setMuted] = useState(false)
+    const today = new Date().toISOString().slice(0, 10);
+    const [savedDate, setSavedDate] = useLocalStorage("savedDate", today);
+
+    const [count, setCount] = useLocalStorage("count", 0);
+    const [answer, setAnswer] = useLocalStorage("answer", "");
+    const [correct, setCorrect] = useLocalStorage("correct", "");
+    const [phase, setPhase] = useLocalStorage("phase", "start");
+    const [history, setHistory] = useLocalStorage("history", []);
+    const [guessed, setGuessed] = useLocalStorage("guessed", false);
+    const [muted, setMuted] = useLocalStorage("muted", false);
+    const [hasStarted, setHasStarted] = useLocalStorage("hasStarted", false);
+    const [appeared, setAppeared] = useLocalStorage("appeared", false)
+
+    useEffect(() => {
+        if (savedDate !== today) {
+            localStorage.clear();
+            setCount(0);
+            setAnswer("");
+            setCorrect("");
+            setPhase("start");
+            setHistory([]);
+            setGuessed(false);
+            setMuted(false);
+            setHasStarted(false);
+            setAppeared(false);
+            setSavedDate(today);
+        }
+    }, [savedDate, today, setSavedDate]);
 
     useEffect(() => {
         const preventScroll = (e) => {
@@ -65,7 +86,8 @@ function App() {
                 </div>
 
                 <div className="open-options-wrapper">
-                    <OpenOptions guessed={guessed} muted={muted} setMuted={setMuted}/>
+                    <OpenOptions guessed={guessed} muted={muted} setMuted={setMuted} appeared={appeared}
+                                 setAppeared={setAppeared}/>
                 </div>
 
             </div>
